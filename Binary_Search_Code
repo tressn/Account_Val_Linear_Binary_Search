@@ -1,0 +1,61 @@
+#include <iostream>
+using namespace std;
+
+int binarysearch(const int [], int, int); //Prototype Function
+
+
+int main()
+{
+    //Array of valid accounts
+    const int size_ = 18;
+    int account[size_] = { 1005231,1250255, 1302850, 3852085, 4520125, 4562555, 4581002, 5050552, 5552012,5658845,  6545231,  7576651,
+                           7825877, 7881200,7895122, 8080152, 8451277, 8777541};
+    int user_account;
+
+    //user enters account number
+    cout << "Enter your account number: ";
+    cin >> user_account;
+
+    //creating a variable to check location with function
+    int results = binarysearch(account, size_, user_account);
+
+    //statement that outputs function results
+    if (results == -1)
+    {
+        cout << "Your account number was not found.";
+    }
+    else
+        cout << "Your account number was found in position " << results + 1 << endl;
+
+    return 0;
+}
+
+//function definition
+int binarysearch(const int array[], int size, int value)
+{
+    int first = 0, //first element
+        last = size - 1, //last element
+        middle, //midpoint of search
+        position = -1; //position of search value
+    bool found = false;
+
+    while (first <= last && !found)
+    {
+        middle = (first + last) / 2; //determines midpoint
+        if (array[middle] == value) //if value is found at midpoint
+        {
+            found = true;
+            position = middle;
+        }
+        else if (array[middle] > value)  //if value is less than midpoint, last number before midpoint is new end
+        {
+            last = middle - 1;
+        }
+        else                             //if value is more than midpoint, first number after midpoint is new beginning
+            first = middle + 1;
+
+    }
+    return position;
+
+
+}
